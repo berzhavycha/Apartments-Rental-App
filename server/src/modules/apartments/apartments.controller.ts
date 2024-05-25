@@ -1,34 +1,37 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Delete,
+    Get,
+    Param,
+    Post,
+} from '@nestjs/common';
+
 import { ApartmentsService } from './apartments.service';
-import { CreateApartmentDto } from './dtos/create-apartment.dto';
-import { UpdateApartmentDto } from './dtos/update-apartment.dto';
+import { CreateApartmentDto } from './dtos';
+import { Apartment } from './entities';
 
 @Controller('apartments')
 export class ApartmentsController {
-    constructor(private readonly apartmentsService: ApartmentsService) {}
-    
+    constructor(private readonly apartmentsService: ApartmentsService) { }
+
     @Get()
-    findAll() {
+    findAll(): Promise<Apartment[]> {
         return this.apartmentsService.findAll();
     }
 
     @Get(':id')
-    findOne(@Param('id') id: string) {
+    findOne(@Param('id') id: string): Promise<Apartment> {
         return this.apartmentsService.findOne(id);
     }
 
     @Post()
-    create(@Body() createApartmentDto: CreateApartmentDto) {
+    create(@Body() createApartmentDto: CreateApartmentDto): Promise<Apartment> {
         return this.apartmentsService.create(createApartmentDto);
     }
 
     @Delete(':id')
-    delete(@Param('id') id: string) {
+    delete(@Param('id') id: string): Promise<{ message: string }> {
         return this.apartmentsService.delete(id);
-    }
-
-    @Put(':id')
-    update(@Param('id') id: string, @Body() updateApartmentDto: UpdateApartmentDto) {
-        return this.apartmentsService.update(id, updateApartmentDto);
     }
 }
