@@ -1,4 +1,4 @@
-import { ApartmentForm, Container, CurrentRentList, AvailableApartments } from './components'
+import { ApartmentForm, Container, AvailableApartments } from './components'
 
 function App() {
   return (
@@ -7,7 +7,6 @@ function App() {
         <h1 className="text-gray-700 text-3xl font-bold pt-14 mb-14">Apartments Marketplace</h1>
         <div className="flex flex-col gap-14">
           <ApartmentForm />
-          <CurrentRentList />
           <AvailableApartments />
         </div>
       </Container>

@@ -12,9 +12,9 @@ export const AvailableApartments = () => {
     const onSortChange = (e) => setSortBy(e.target.value);
 
     const filteredAndSortedApartments = useMemo(() => {
-        const filtered = data.filter(apartment => apartment.rooms === filterByRooms);
+        const filtered = data?.filter(apartment => apartment.rooms === filterByRooms);
 
-        const sorted = filtered.sort((a, b) => {
+        const sorted = filtered?.sort((a, b) => {
             if (sortBy === "Price: Highest First") {
                 return b.price - a.price;
             } else {
@@ -26,14 +26,14 @@ export const AvailableApartments = () => {
     }, [data, filterByRooms, sortBy]);
 
     const filterRooms = useMemo(() => {
-        const roomsSet = new Set(data.map(apartment => apartment.rooms));
+        const roomsSet = new Set(data?.map(apartment => apartment.rooms));
         return Array.from(roomsSet);
     }, [data]);
 
     return (
         <div>
             <div className="flex justify-between items-center mb-4">
-                <SectionLabel emoji={`🤑`} label={`Available Apartments (${filteredAndSortedApartments.length})`} />
+                <SectionLabel emoji={`🤑`} label={`Available Apartments (${filteredAndSortedApartments?.length ?? 0})`} />
                 <div className="flex items-center gap-4">
                     <label htmlFor="filter" className="text-lg text-gray-700">Filter By Room:</label>
                     <select
@@ -62,7 +62,7 @@ export const AvailableApartments = () => {
                 </div>
             </div>
             <div className="flex flex-col gap-4">
-                {filteredAndSortedApartments.map(item => {
+                {filteredAndSortedApartments?.map(item => {
                     return <RentItem key={item.id} {...item} />
                 })}
             </div>
