@@ -1,0 +1,12 @@
+.custom-select {
+    appearance: none;
+    background-color: white;
+    padding: 0.5rem;
+    cursor: pointer;
+    background-image: url('https://cdn4.iconfinder.com/data/icons/ios-edge-glyph-3/25/Down-Carrot-512.png');
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 0.9rem;
+    font-size: 1rem;
+    color: #333;
+}
