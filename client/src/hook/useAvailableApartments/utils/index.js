@@ -1,1 +1,1 @@
-export * from './getApartments'
+export * from './getApartments';

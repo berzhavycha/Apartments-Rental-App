@@ -1,3 +1,3 @@
-export * from './ApartmentForm'
-export * from './AvailableApartments'
-export * from './RentItem'
+export * from './ApartmentForm';
+export * from './AvailableApartments';
+export * from './RentItem';

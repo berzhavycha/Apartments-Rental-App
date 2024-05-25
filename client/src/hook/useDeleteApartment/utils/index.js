@@ -1,1 +1,1 @@
-export * from './deleteApartment'
+export * from './deleteApartment';

@@ -1,4 +1,4 @@
-import { ApartmentForm, Container, AvailableApartments } from './components'
+import { ApartmentForm, AvailableApartments, Container } from './components';
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
         </div>
       </Container>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
