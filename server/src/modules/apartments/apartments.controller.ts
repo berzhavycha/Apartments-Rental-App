@@ -5,6 +5,7 @@ import {
     Get,
     Param,
     Post,
+    Query,
 } from '@nestjs/common';
 
 import { ApartmentsService } from './apartments.service';
@@ -16,8 +17,11 @@ export class ApartmentsController {
     constructor(private readonly apartmentsService: ApartmentsService) { }
 
     @Get()
-    findAll(): Promise<Apartment[]> {
-        return this.apartmentsService.findAll();
+    findAll(
+        @Query('price') price: 'asc' | 'desc',
+        @Query('rooms') rooms: number,
+    ): Promise<Apartment[]> {
+        return this.apartmentsService.findAll({ price, rooms });
     }
 
     @Get(':id')

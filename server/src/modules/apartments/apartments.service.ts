@@ -7,33 +7,44 @@ import { Apartment } from './entities';
 
 @Injectable()
 export class ApartmentsService {
-  constructor(
-    @InjectRepository(Apartment)
-    private readonly apartmentRepository: Repository<Apartment>,
-  ) {}
+    constructor(
+        @InjectRepository(Apartment)
+        private readonly apartmentRepository: Repository<Apartment>,
+    ) { }
 
-  async findAll(): Promise<Apartment[]> {
-    return await this.apartmentRepository.find();
-  }
+    async findAll(queryParams: { price: 'asc' | 'desc'; rooms: number }): Promise<Apartment[]> {
+        const { price, rooms } = queryParams;
+        let query = this.apartmentRepository.createQueryBuilder('apartment');
 
-  async findOne(id: string): Promise<Apartment> {
-    const apartment = await this.apartmentRepository.findOne({ where: { id } });
-    if (!apartment) {
-      throw new NotFoundException('Apartment not found');
+        if (price) {
+            const orderByPrice = price.toUpperCase();
+            query = query.orderBy('apartment.price', orderByPrice as 'ASC' | 'DESC');
+        }
+        if (rooms) {
+            query = query.andWhere('apartment.rooms = :rooms', { rooms });
+        }
+
+        return await query.getMany();
     }
-    return apartment;
-  }
 
-  async create(createApartmentDto: CreateApartmentDto): Promise<Apartment> {
-    const apartment = this.apartmentRepository.create(createApartmentDto);
-    return await this.apartmentRepository.save(apartment);
-  }
-
-  async delete(id: string): Promise<{ message: string }> {
-    const result = await this.apartmentRepository.delete(id);
-    if (result.affected === 0) {
-      throw new NotFoundException('Apartment not found');
+    async findOne(id: string): Promise<Apartment> {
+        const apartment = await this.apartmentRepository.findOne({ where: { id } });
+        if (!apartment) {
+            throw new NotFoundException('Apartment not found');
+        }
+        return apartment;
     }
-    return { message: 'Apartment deleted successfully' };
-  }
+
+    async create(createApartmentDto: CreateApartmentDto): Promise<Apartment> {
+        const apartment = this.apartmentRepository.create(createApartmentDto);
+        return await this.apartmentRepository.save(apartment);
+    }
+
+    async delete(id: string): Promise<{ message: string }> {
+        const result = await this.apartmentRepository.delete(id);
+        if (result.affected === 0) {
+            throw new NotFoundException('Apartment not found');
+        }
+        return { message: 'Apartment deleted successfully' };
+    }
 }

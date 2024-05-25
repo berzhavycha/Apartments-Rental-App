@@ -2,17 +2,40 @@ import { useMemo, useState } from "react";
 import { useAvailableApartments } from "../../../hook";
 import { RentItem } from "../RentItem";
 import { SectionLabel, SelectField } from "../../common";
+import { useSearchParams } from 'react-router-dom';
 
 export const AvailableApartments = () => {
     const { data } = useAvailableApartments();
     const [sortBy, setSortBy] = useState("Price: Highest First");
-    const [filterByRooms, setFilterByRooms] = useState(null); 
+    const [filterByRooms, setFilterByRooms] = useState(null);
+    // eslint-disable-next-line no-unused-vars
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const onFilterChange = (e) => {
-        const value = e.target.value === "none" ? null : Number(e.target.value); 
+        const value = e.target.value === "none" ? null : Number(e.target.value);
+        setSearchParams((params) => {
+            if (value) {
+                params.append('rooms', value);
+            } else {
+                params.delete('rooms');
+            }
+            return params;
+        });
         setFilterByRooms(value);
     };
-    const onSortChange = (e) => setSortBy(e.target.value);
+    const onSortChange = (e) => {
+        const selectedSort = e.target.value;
+        let sortDirection;
+
+        if (selectedSort === 'Price: Highest First') {
+            sortDirection = 'desc';
+        } else {
+            sortDirection = 'asc';
+        }
+
+        setSortBy(selectedSort)
+        setSearchParams({ price: sortDirection })
+    };
 
     const filteredAndSortedApartments = useMemo(() => {
         let filtered = data;
@@ -33,7 +56,7 @@ export const AvailableApartments = () => {
 
     const filterRooms = useMemo(() => {
         const roomsSet = new Set(data?.map(apartment => apartment.rooms).sort());
-        return ["none", ...Array.from(roomsSet)]; 
+        return ["none", ...Array.from(roomsSet)];
     }, [data]);
 
     return (
