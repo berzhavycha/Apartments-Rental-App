@@ -1,3 +1,2 @@
-export * from './ApartmentForm'
+export * from './apartments'
 export * from './common'
-export * from './AvailableApartments'

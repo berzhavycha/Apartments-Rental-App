@@ -1,18 +1,24 @@
 import { useMemo, useState } from "react";
-import { useAvailableApartments } from "../../hook";
+import { useAvailableApartments } from "../../../hook";
 import { RentItem } from "../RentItem";
-import { SectionLabel } from "../common";
+import { SectionLabel, SelectField } from "../../common";
 
 export const AvailableApartments = () => {
     const { data } = useAvailableApartments();
     const [sortBy, setSortBy] = useState("Price: Highest First");
-    const [filterByRooms, setFilterByRooms] = useState(1);
+    const [filterByRooms, setFilterByRooms] = useState(null); 
 
-    const onFilterChange = (e) => setFilterByRooms(Number(e.target.value));
+    const onFilterChange = (e) => {
+        const value = e.target.value === "none" ? null : Number(e.target.value); 
+        setFilterByRooms(value);
+    };
     const onSortChange = (e) => setSortBy(e.target.value);
 
     const filteredAndSortedApartments = useMemo(() => {
-        const filtered = data?.filter(apartment => apartment.rooms === filterByRooms);
+        let filtered = data;
+        if (filterByRooms !== null) {
+            filtered = filtered?.filter(apartment => apartment.rooms === filterByRooms);
+        }
 
         const sorted = filtered?.sort((a, b) => {
             if (sortBy === "Price: Highest First") {
@@ -26,8 +32,8 @@ export const AvailableApartments = () => {
     }, [data, filterByRooms, sortBy]);
 
     const filterRooms = useMemo(() => {
-        const roomsSet = new Set(data?.map(apartment => apartment.rooms));
-        return Array.from(roomsSet);
+        const roomsSet = new Set(data?.map(apartment => apartment.rooms).sort());
+        return ["none", ...Array.from(roomsSet)]; 
     }, [data]);
 
     return (
@@ -35,30 +41,21 @@ export const AvailableApartments = () => {
             <div className="flex justify-between items-center mb-4">
                 <SectionLabel emoji={`🤑`} label={`Available Apartments (${filteredAndSortedApartments?.length ?? 0})`} />
                 <div className="flex items-center gap-4">
-                    <label htmlFor="filter" className="text-lg text-gray-700">Filter By Room:</label>
-                    <select
-                        id="filter"
-                        value={filterByRooms}
+                    <label className="text-lg text-gray-700">Filter By Room:</label>
+                    <SelectField
+                        value={filterByRooms === null ? "none" : filterByRooms}
                         onChange={onFilterChange}
-                        className="custom-select w-48 px-3 border border-gray-300 rounded focus:outline-none"
-                    >
-                        {filterRooms.map(room => (
-                            <option key={room} value={room}>{room}</option>
-                        ))}
-                    </select>
+                        options={filterRooms}
+                    />
                 </div>
 
                 <div className="flex items-center gap-4">
-                    <label htmlFor="sort" className="text-lg text-gray-700">Sort By:</label>
-                    <select
-                        id="sort"
+                    <label className="text-lg text-gray-700">Sort By:</label>
+                    <SelectField
                         value={sortBy}
                         onChange={onSortChange}
-                        className="custom-select w-48 px-3 border border-gray-300 rounded focus:outline-none"
-                    >
-                        <option value="Price: Highest First">Price: Highest First</option>
-                        <option value="Price: Lowest First">Price: Lowest First</option>
-                    </select>
+                        options={['Price: Highest First', 'Price: Lowest First']}
+                    />
                 </div>
             </div>
             <div className="flex flex-col gap-4">

@@ -11,13 +11,13 @@ export const useAddApartment = (formData) => {
         },
     });
 
-    const handleSubmit = async (event) => {
+    const addApartmentHandler = async (event) => {
         event.preventDefault();
         createApartmentMutation.mutate(formData);
     };
 
     return {
-        handleSubmit,
+        addApartmentHandler,
     };
 };
 
