@@ -1,6 +1,5 @@
 ## Index
 
-- [About](#about)
 - [Usage](#usage)
   - [Installation](#installation)
   - [Commands](#commands)
