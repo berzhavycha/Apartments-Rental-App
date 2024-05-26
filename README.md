@@ -6,8 +6,6 @@
   - [Commands](#commands)
 
 
-## About
-
 ## Usage
 
 ### Installation
