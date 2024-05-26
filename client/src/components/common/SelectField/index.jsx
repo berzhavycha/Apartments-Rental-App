@@ -1,4 +1,4 @@
-export const SelectField = ({ label, value, onChange, options }) => (
+export const SelectField = ({ label, value, onChange, options, errorMessage }) => (
   <div>
     {label && (
       <label htmlFor={label} className="block text-gray-700 text-sm font-bold mb-2">
@@ -17,5 +17,6 @@ export const SelectField = ({ label, value, onChange, options }) => (
         </option>
       ))}
     </select>
+    <p className="mt-2 h-4 text-red-500 text-sm">{errorMessage}</p>
   </div>
 );

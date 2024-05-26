@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { useDeleteApartment } from '../../../hook';
+import { useDeleteApartment } from '../../../hooks';
 import { Button } from '../../common';
 
 export const RentItem = ({ id, name, rooms, days, price, description }) => {

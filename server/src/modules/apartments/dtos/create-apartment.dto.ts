@@ -2,7 +2,6 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   IsInt,
   IsNotEmpty,
-  IsNumber,
   IsString,
   MaxLength,
   Min,
@@ -21,7 +20,8 @@ export class CreateApartmentDto {
   name: string;
 
   @ApiProperty()
-  @IsNumber()
+  @IsInt()
+  @Min(1)
   price: number;
 
   @ApiProperty()
