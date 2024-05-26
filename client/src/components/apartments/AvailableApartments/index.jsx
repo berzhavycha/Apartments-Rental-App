@@ -1,4 +1,4 @@
-import { useAvailableApartments, useQueryParams  } from '../../../hooks';
+import { useAvailableApartments, useQueryParams } from '../../../hooks';
 import { SectionLabel, SelectField } from '../../common';
 import { RentItem } from '../RentItem';
 

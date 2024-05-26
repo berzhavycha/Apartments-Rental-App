@@ -31,11 +31,15 @@ export const useApartmentForm = () => {
   };
 
   return {
-    name, setName,
-    rooms, setRooms,
-    price, setPrice,
-    description, setDescription,
+    name,
+    setName,
+    rooms,
+    setRooms,
+    price,
+    setPrice,
+    description,
+    setDescription,
     clearForm,
-    validateForm
+    validateForm,
   };
 };

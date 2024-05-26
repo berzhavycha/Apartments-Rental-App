@@ -1,16 +1,22 @@
 import { useState } from 'react';
+
 import { useAddApartment, useApartmentForm } from '../../../hooks';
 import { Button, InputField, SectionLabel, SelectField, TextAreaField } from '../../common';
+
 import './custom.css';
 
 export const ApartmentForm = () => {
   const {
-    name, setName,
-    rooms, setRooms,
-    price, setPrice,
-    description, setDescription,
+    name,
+    setName,
+    rooms,
+    setRooms,
+    price,
+    setPrice,
+    description,
+    setDescription,
     clearForm,
-    validateForm
+    validateForm,
   } = useApartmentForm();
 
   const { addApartmentHandler } = useAddApartment({

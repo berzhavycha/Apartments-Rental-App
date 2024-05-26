@@ -4,7 +4,7 @@ import { getApartments } from './utils';
 
 export const useAvailableApartments = (queryParams) => {
   return useQuery({
-    queryKey: ['apartments', queryParams], 
-    queryFn: () => getApartments(queryParams), 
+    queryKey: ['apartments', queryParams],
+    queryFn: () => getApartments(queryParams),
   });
 };
