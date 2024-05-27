@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useDeleteApartment } from '../../../hooks';
 import { Button } from '../../common';
 
-export const RentItem = ({ id, name, rooms, days, price, description }) => {
+export const RentItem = ({ id, name, rooms, price, description }) => {
   const [showDescription, setShowDescription] = useState(false);
   const { deleteApartmentHandler } = useDeleteApartment();
 
@@ -15,8 +15,7 @@ export const RentItem = ({ id, name, rooms, days, price, description }) => {
     <div className="flex flex-col bg-white p-6 rounded-md items-start border border-gray-300">
       <div className="flex justify-between w-full items-center">
         <p>
-          {name} / {rooms} {`${rooms > 1 ? 'beds' : 'bed'}`} / {days}{' '}
-          {`${days > 1 ? 'days' : 'day'}`} / ${price}
+          {name} / {rooms} {`${rooms > 1 ? 'rooms' : 'room'}`} / ${price}
         </p>
         <div className="flex gap-4">
           <Button type="reject" text={'Delete'} onClick={onDelete} />

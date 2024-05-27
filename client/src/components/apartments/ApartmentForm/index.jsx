@@ -67,13 +67,14 @@ export const ApartmentForm = () => {
           errorMessage={errors.description}
         />
         <div className="flex items-center space-x-7">
-          <SelectField
-            label="Beds"
-            value={rooms}
-            onChange={onRoomsChange}
-            options={['1', '2', '3', '4']}
-            errorMessage={errors.rooms}
-          />
+          <div className="mb-6">
+            <SelectField
+              label="Rooms"
+              value={rooms}
+              onChange={onRoomsChange}
+              options={['1', '2', '3', '4']}
+            />
+          </div>
           <InputField
             label="Rent Price"
             value={price}

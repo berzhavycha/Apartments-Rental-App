@@ -40,7 +40,7 @@ export class ApartmentsService {
 
   async create(createApartmentDto: CreateApartmentDto): Promise<Apartment> {
     const apartment = this.apartmentRepository.create(createApartmentDto);
-    return await this.apartmentRepository.save(apartment);
+    return this.apartmentRepository.save(apartment);
   }
 
   async delete(id: string): Promise<{ message: string }> {
